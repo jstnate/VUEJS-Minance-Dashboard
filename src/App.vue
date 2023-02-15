@@ -47,20 +47,48 @@
     </section>
 
     <aside class="right-aside">
-      <div>
-        <img src="" alt="">
-        <img src="" alt="">
+      <div class="action-buttons">
+        <img class="small-icon" src="@/assets/images/notification-icon.png" alt="notification icon">
+        <img src="@/assets/images/pdp.png" alt="profile picture">
       </div>
 
-      <div>
+      <div class="transactions">
         <h2>Recent Transactions</h2>
 
         <TransactionComponent 
-          logo="images/usdt-logo.png" 
+          logo="images/usdt-icon.png" 
           crypto="Usdt" 
           type="Received" 
           amount="+$3,546" 
           date="Today, 13:45 pm"
+        />
+        <TransactionComponent 
+          logo="images/binance-icon.png" 
+          crypto="BNB" 
+          type="Buy" 
+          amount="+$0,7546" 
+          date="Today, 5:45 am"
+        />
+        <TransactionComponent 
+          logo="images/litecoin-icon.png" 
+          crypto="Lite Coin" 
+          type="Withdrawal" 
+          amount="-$0,7546" 
+          date="Today, 7:55 am"
+        />
+        <TransactionComponent 
+          logo="images/bitcoin-icon.png" 
+          crypto="Bitcoin" 
+          type="Received" 
+          amount="+$2,7546" 
+          date="Today, 8:55 am"
+        />
+        <TransactionComponent 
+          logo="images/etherum-icon.png" 
+          crypto="Etherum" 
+          type="Received" 
+          amount="+$1,646" 
+          date="Today, 10:02 am"
         />
       </div>
     </aside>
@@ -69,7 +97,6 @@
 
 <script>
 import AsideLinkComponent from '@/components/AsideLinkComponent.vue'
-import TransactionComponent from '@/components/TransactionComponent.vue';
 import TransactionComponent from '@/components/TransactionComponent.vue'
 export default {
   name: 'App',
@@ -243,6 +270,48 @@ export default {
               background-color: #000000;
             }
           }
+        }
+      }
+    }
+
+    .right-aside {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      width: 25%;
+
+      .action-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid yellow;
+
+        img {
+          width: 40px;
+        }
+
+        .small-icon {
+          width: 30px;
+        }
+      }
+
+      .transactions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid orange;
+        gap: 20px;
+        height: 50%;
+        margin: 20px 0;
+
+        h2 {
+          margin-bottom: 20px;
         }
       }
     }

@@ -1,16 +1,19 @@
 <template>
-    <div>
-        <img :src="require(`@/assets/${logo}`)" alt="">
+    <div class="container">
+        <div class="logo">
+            <img :src="require(`@/assets/${logo}`)" alt="">
+        </div>
 
-        <div>
+        <div class="crypto">
             <h2>{{ crypto }}</h2>
             <p>{{ type }}</p>
         </div>
 
-        <div>
-            <h3>{{ amount }}</h3>
+        <div class="values">
+            <h3 :style="{ color: amount.includes('+') ? 'green' : 'red' }">{{ amount }}</h3>
             <p>{{ date }}</p>
         </div>
+        
     </div>
 </template>
 
@@ -43,5 +46,45 @@
 </script>
 
 <style lang="scss" scoped>
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
 
+        .logo {
+            width: 50px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            aspect-ratio: 2/1;
+
+            img {
+                width: 40px;
+            }
+        }
+
+        p {
+            color: #ffffff;
+            opacity: .8;
+        }
+
+        .crypto {
+            width: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .values {
+            width: 120px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: flex-start;
+            justify-content: center;
+        }
+    }
 </style>
