@@ -38,11 +38,55 @@
         </div>
 
         <div class="view-link">
-          <a href="#" class="active">Portfolio</a>
-          <a href="#">Funding</a>
-          <a href="#">Assets</a>
-          <a href="#">P2P</a>
+          <a id="view-switch" href="#" class="active">Portfolio</a>
+          <a id="view-switch" href="#">Funding</a>
+          <a id="view-switch" href="#">Assets</a>
+          <a id="view-switch" href="#">P2P</a>
         </div>
+      </div>
+
+      <div class="chart">
+        <div class="edit-chart-buttons">
+          <div class="sort-buttons">
+            <ChartSortButtonComponent sort="1H"/>
+            <ChartSortButtonComponent sort="1D"/>
+            <ChartSortButtonComponent sort="3D"/>
+            <ChartSortButtonComponent sort="1W"/>
+            <ChartSortButtonComponent sort="1M"/>
+            <span><img src="@/assets/images/calendar.png" alt="calendar"></span>
+          </div>
+
+          <div class="switch-buttons">
+            <SwitchButtonComponent logo="images/white-bitcoin-icon.png" crypto="BTC"/>
+            <img src="@/assets/images/switch-icon.png" alt="switch">
+            <SwitchButtonComponent logo="images/white-etherum-icon.png" crypto="ETH"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="large-transactions">
+        <div class="large-transactions-header">
+          <h2>Recent Transactions</h2>
+          <h3>See all coins</h3>
+        </div>
+
+        <LargeTransactionsComponent 
+          logo="images/bitcoin-trans-icon.png" 
+          crypto="Bitcoin" 
+          short="BTC" 
+          marketCap="$40,243.70" 
+          change="+1,56" 
+          chageChart="images/bitcoin-change.png"
+        />
+
+        <LargeTransactionsComponent 
+          logo="images/white-etherum-icon.png" 
+          crypto="Etherum" 
+          short="ETH" 
+          marketCap="$40,243.70" 
+          change="+1,56" 
+          chageChart="images/etherum-change.png"
+        />
       </div>
     </section>
 
@@ -91,6 +135,27 @@
           date="Today, 10:02 am"
         />
       </div>
+
+      <div class="assets">
+        <h2>Assets</h2>
+
+        <AssetsComponents 
+          logo="images/white-bitcoin-icon.png" 
+          crypto="Bitcoin" 
+          value="121,6450.45" 
+          type="BTC"
+
+          class="bitcoin-asset"
+        />
+        <AssetsComponents 
+          logo="images/etherum-icon.png" 
+          crypto="Etherum" 
+          value="143,850.45"
+          type="ETH"
+
+          class="etherum-asset"
+        />
+      </div>
     </aside>
   </main>
 </template>
@@ -98,12 +163,21 @@
 <script>
 import AsideLinkComponent from '@/components/AsideLinkComponent.vue'
 import TransactionComponent from '@/components/TransactionComponent.vue'
+import AssetsComponents from '@/components/AssetsComponent.vue'
+import ChartSortButtonComponent from '@/components/ChartSortButtonComponent.vue'
+import SwitchButtonComponent from '@/components/SwitchButtonComponent.vue'
+import LargeTransactionsComponent from '@/components/LargeTransactionsComponents.vue'
+
 export default {
   name: 'App',
 
   components: {
     AsideLinkComponent,
-    TransactionComponent
+    TransactionComponent,
+    AssetsComponents,
+    ChartSortButtonComponent,
+    SwitchButtonComponent,
+    LargeTransactionsComponent
 },
 }
 
@@ -116,7 +190,6 @@ export default {
     width: 100vw;
 
     .left-aside {
-      border: 2px solid red;
       width: 20vw;
       padding: 1.5rem 2rem 2rem;
       display: flex;
@@ -150,6 +223,11 @@ export default {
             color: #000000;
             font-size: 20px;
             gap: 30px;
+
+            &:hover {
+              color: #ffffff;
+              cursor: pointer;
+            }
           }
         }
 
@@ -168,13 +246,11 @@ export default {
     section {
       width: 55%;
       height: 100vh;
-      border: 2px solid white;
 
       header {
         display: flex;
-        padding: 2rem;
+        padding: 2rem 2rem 1rem;
         align-items: center;
-        border: 2px solid green;
         width: 55vw;
 
         h1 {
@@ -219,7 +295,6 @@ export default {
         align-items: center;
         justify-content: flex-start;
         gap: 80px;
-        border: 2px solid blue;
 
         .wallet {
           display: flex;
@@ -231,7 +306,8 @@ export default {
             font-size: 24px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 10px;
+            width: 200px;
 
             span {
               background: #FAFF00;
@@ -272,13 +348,62 @@ export default {
           }
         }
       }
+
+      .chart {
+        background: rgba(48, 53, 65, 0.67);
+        border-radius: 30px;
+        height: 50vh;
+        width: 100%;
+        padding: .5rem;
+
+        .edit-chart-buttons {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          padding: 1rem;
+          .sort-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+
+            span {
+              border-radius: 5px;
+              transform: translateY(2px);
+            }
+          }
+
+          .switch-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+          }
+        }
+      }
+
+      .large-transactions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 1rem;
+
+        &-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 85%;
+        }
+      }
     }
 
     .right-aside {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 1rem;
+      padding: 1rem 0;
       width: 25%;
 
       .action-buttons {
@@ -287,7 +412,6 @@ export default {
         justify-content: space-between;
         width: 100%;
         padding: 1rem;
-        border: 2px solid yellow;
 
         img {
           width: 40px;
@@ -304,14 +428,31 @@ export default {
         align-items: flex-start;
         justify-content: flex-start;
         width: 100%;
-        padding: 1rem;
-        border: 2px solid orange;
+        padding: 0 1rem;
         gap: 20px;
-        height: 50%;
-        margin: 20px 0;
+        height: 45%;
+        margin: 20px 0 10px;
+      }
 
-        h2 {
-          margin-bottom: 20px;
+      .assets {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 100%;
+        padding: .5rem 1rem 0;
+        gap: 10px;
+        height: 45%;
+
+        .bitcoin-asset {
+          background: linear-gradient(98.73deg, #611D8D 35.75%, #2F7EC1 73.26%);
+        }
+
+        .etherum-asset {
+          background: linear-gradient(99.56deg, #FAFF00 35.82%, #29ABE2 64.75%, rgba(255, 255, 255, 0.7) 91.33%);
+          .crypto {
+            color: #000000;
+          }
         }
       }
     }

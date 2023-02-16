@@ -14,6 +14,10 @@
         gap: 1rem;
         font-size: 16px;
 
+        &:hover {
+            cursor: pointer;
+        }
+
         img {
             width: 30px;
         }
