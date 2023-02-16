@@ -144,16 +144,16 @@
           crypto="Bitcoin" 
           value="121,6450.45" 
           type="BTC"
-
-          class="bitcoin-asset"
+          color="#FFFFFF"
+          bg="linear-gradient(98.73deg, #611D8D 35.75%, #2F7EC1 73.26%)"
         />
         <AssetsComponents 
           logo="images/etherum-icon.png" 
           crypto="Etherum" 
           value="143,850.45"
           type="ETH"
-
-          class="etherum-asset"
+          color="#000000 !important"
+          bg="linear-gradient(99.56deg, #FAFF00 35.82%, #29ABE2 64.75%, rgba(255, 255, 255, 0.7) 91.33%)"
         />
       </div>
     </aside>
@@ -256,6 +256,7 @@ export default {
         h1 {
           width: 400px;
           font-size: 28px;
+          color: #ffffff;
         }
 
         .search-div {
@@ -295,6 +296,7 @@ export default {
         align-items: center;
         justify-content: flex-start;
         gap: 80px;
+        color: #FFFFFF;
 
         .wallet {
           display: flex;
@@ -341,6 +343,7 @@ export default {
             text-decoration: none;
             padding: .5rem 1rem;
             border-radius: 15px;
+            color: #FFFFFF;
 
             &.active {
               background-color: #000000;
@@ -443,17 +446,6 @@ export default {
         padding: .5rem 1rem 0;
         gap: 10px;
         height: 45%;
-
-        .bitcoin-asset {
-          background: linear-gradient(98.73deg, #611D8D 35.75%, #2F7EC1 73.26%);
-        }
-
-        .etherum-asset {
-          background: linear-gradient(99.56deg, #FAFF00 35.82%, #29ABE2 64.75%, rgba(255, 255, 255, 0.7) 91.33%);
-          .crypto {
-            color: #000000;
-          }
-        }
       }
     }
   }

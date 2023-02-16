@@ -1,6 +1,6 @@
 <template lang="">
-    <div class="container">
-        <div class="crypto">
+    <div :style="{color:color, background:bg}" class="container">
+        <div :style="{color:color }" class="crypto">
             <img :src="require(`@/assets/${logo}`)" alt="">
             <h4>{{ crypto }}</h4>
         </div>
@@ -27,6 +27,14 @@
                 required: true
             },
             type: {
+                type: String,
+                required: true
+            },
+            bg: {
+                type: String,
+                required: true
+            },
+            color: {
                 type: String,
                 required: true
             }

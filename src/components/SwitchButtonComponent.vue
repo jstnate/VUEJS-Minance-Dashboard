@@ -31,6 +31,7 @@
         border-radius: 10px;
         background-color: #000000;
         gap: 15px;
+        color: #ffffff;
 
         .icon {
             width: 30px

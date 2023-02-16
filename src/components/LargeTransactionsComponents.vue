@@ -46,6 +46,7 @@
         background: rgba(32, 35, 43, 0.7);
         border-radius: 20px;
         width: 90%;
+        color: #ffffff;
 
         .logo {
             width: 40px;
@@ -69,11 +70,17 @@
         }
 
         button {
-            padding: .3rem .5rem;
+            padding: .4rem .6rem;
             border-radius: 15px;
             background-color: #000000;
             border: none;
+            color: #ffffff;
 
+            &:hover {
+                background: rgba(255, 255, 255, 0.8);
+                color: #000000;
+                cursor: pointer;
+            }
         }
     }
 </style>
