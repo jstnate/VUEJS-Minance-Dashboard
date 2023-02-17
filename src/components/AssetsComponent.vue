@@ -1,7 +1,7 @@
 <template lang="">
     <div :style="{color:color, background:bg}" class="container">
         <div :style="{color:color }" class="crypto">
-            <img :src="require(`@/assets/${logo}`)" alt="">
+            <img :style="{width:imageSize, aspectRatio: 1/1 }" :src="require(`@/assets/${logo}`)" alt="">
             <h4>{{ crypto }}</h4>
         </div>
         <div class="value">
@@ -35,6 +35,10 @@
                 required: true
             },
             color: {
+                type: String,
+                required: true
+            },
+            imageSize: {
                 type: String,
                 required: true
             }

@@ -1,6 +1,10 @@
 <template>
   <main>
-    <aside class="left-aside">
+    <div id="burger-button" class="burger-box">
+      <div id="burger-inner" class="burger-inner">
+      </div>
+    </div>
+    <aside id="burger-menu" class="left-aside">
       <img src="@/assets/images/logo.png" alt="logo">
 
       <div class="link-container">
@@ -20,7 +24,7 @@
       <AsideLinkComponent text="Log out" icon="images/logout-icon.png"/>
     </aside>
 
-    <section>
+    <section class="page-content">
       <header>
         <h1>Hi, Rogers</h1>
 
@@ -48,11 +52,11 @@
       <div class="chart">
         <div class="edit-chart-buttons">
           <div class="sort-buttons">
-            <ChartSortButtonComponent sort="1H"/>
-            <ChartSortButtonComponent sort="1D"/>
-            <ChartSortButtonComponent sort="3D"/>
-            <ChartSortButtonComponent sort="1W"/>
-            <ChartSortButtonComponent sort="1M"/>
+            <ChartSortButtonComponent class="responsive-disappear" sort="1H"/>
+            <ChartSortButtonComponent class="responsive-disappear" sort="1D"/>
+            <ChartSortButtonComponent class="responsive-disappear" sort="3D"/>
+            <ChartSortButtonComponent class="responsive-disappear" sort="1W"/>
+            <ChartSortButtonComponent class="responsive-disappear" sort="1M"/>
             <span><img src="@/assets/images/calendar.png" alt="calendar"></span>
           </div>
 
@@ -62,6 +66,8 @@
             <SwitchButtonComponent logo="images/white-etherum-icon.png" crypto="ETH"/>
           </div>
         </div>
+
+        <canvas id="canva"></canvas>
       </div>
 
       <div class="large-transactions">
@@ -89,11 +95,13 @@
         />
       </div>
     </section>
+    
+    <img id="profile-button" class="profile-responsive" src="@/assets/images/pdp.png" alt="profile picture">
 
-    <aside class="right-aside">
+    <aside id="profile-menu" class="right-aside">
       <div class="action-buttons">
         <img class="small-icon" src="@/assets/images/notification-icon.png" alt="notification icon">
-        <img src="@/assets/images/pdp.png" alt="profile picture">
+        <img id="desktop-profile-button" src="@/assets/images/pdp.png" alt="profile picture">
       </div>
 
       <div class="transactions">
@@ -146,6 +154,7 @@
           type="BTC"
           color="#FFFFFF"
           bg="linear-gradient(98.73deg, #611D8D 35.75%, #2F7EC1 73.26%)"
+          imageSize="60px"
         />
         <AssetsComponents 
           logo="images/etherum-icon.png" 
@@ -154,6 +163,7 @@
           type="ETH"
           color="#000000 !important"
           bg="linear-gradient(99.56deg, #FAFF00 35.82%, #29ABE2 64.75%, rgba(255, 255, 255, 0.7) 91.33%)"
+          imageSize="50px"
         />
       </div>
     </aside>
@@ -168,6 +178,8 @@ import ChartSortButtonComponent from '@/components/ChartSortButtonComponent.vue'
 import SwitchButtonComponent from '@/components/SwitchButtonComponent.vue'
 import LargeTransactionsComponent from '@/components/LargeTransactionsComponents.vue'
 
+import Chart from 'chart.js'
+
 export default {
   name: 'App',
 
@@ -178,7 +190,58 @@ export default {
     ChartSortButtonComponent,
     SwitchButtonComponent,
     LargeTransactionsComponent
-},
+  },
+  mounted() {
+    const canva = document.getElementById('canva').getContext('2d')
+
+    new Chart(canva, {
+      type:'line',
+      data: {
+          labels: ['5Nov','6Nov','7Nov','8Nov','9Nov','10Nov','11Nov','12Nov','13Nov','14Nov','15Nov',],
+          datasets: [
+              {
+                  label:'ETH',
+                  data:[100,600,250,200,100,400,200,250,700,100,300],
+                  borderColor: 'rgba(89, 39, 149, 1)',
+                  backgroundColor:'transparent'
+              },
+              {
+                  label:'BTC',
+                  data:[null,250,500,700,500,400,350,550,500,600,400],
+                  borderColor: 'rgba(77, 145, 165, 1)',
+                  backgroundColor:'transparent'
+              },
+              {
+                  label:'DOGE',
+                  data:[null,null,null,null,0,200,550,300,100,650,null],
+                  borderColor: 'rgba(77, 145, 200, 1)',
+                  backgroundColor:'transparent'
+              }
+
+          ]
+      },
+      options: {
+          scales: {
+              y: {
+                  ticks: {
+                      // Include a dollar sign in the ticks
+                      callback: function(value) {
+                          return '$' + value;
+                      }
+                  }
+              }
+          },
+          legend: {
+              display: false
+          },
+          tooltips: {
+              callbacks: {
+                label: (item) => `${item.yLabel} GB`,
+              },
+            },
+      }
+    })
+  }
 }
 
 </script>
@@ -189,6 +252,81 @@ export default {
     height: 100vh;
     width: 100vw;
 
+    @media screen and (max-width: 1024px) {
+      height: 100%;
+    }
+
+    .burger-box {
+      position: relative;
+      display: none;
+      width: 40px;
+      height: 24px;
+      position: absolute;
+      top: 50px;
+      left: 20px;
+      z-index: 100;
+
+      @media screen and (max-width: 1024px) {
+        display: inline-block;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.active {
+        .burger-inner {
+          transform: rotate(45deg);
+
+          &::after {
+            bottom: 0;
+            transition: bottom 75ms ease,transform 75ms cubic-bezier(.215,.61,.355,1) .12s;
+            transform: rotate(-90deg);
+          }
+
+          &::before {
+            transition: bottom 75ms ease,transform 75ms cubic-bezier(.215,.61,.355,1) .12s;
+            transform: rotate(-90deg);
+            top: 0;
+          }
+        }
+      }
+
+      .burger-inner {
+        transition-timing-function: cubic-bezier(.55,.055,.675,.19);
+        transition-duration: 75ms;
+        position: absolute;
+        width: 40px;
+        height: 4px;
+        transition-timing-function: ease;
+        transition-duration: .15s;
+        transition-property: transform;
+        border-radius: 4px;
+        background-color: #fff;
+
+        &::after, &::before {
+          display: block;
+          content: '';
+          position: absolute;
+          width: 40px;
+          height: 4px;
+          transition-timing-function: ease;
+          transition-duration: .15s;
+          transition-property: transform;
+          border-radius: 4px;
+          background-color: #fff;
+        }
+
+        &::after {
+          bottom: -10px;
+        }
+
+        &::before {
+          top: -10px;
+        }
+      }
+    }
+
     .left-aside {
       width: 20vw;
       padding: 1.5rem 2rem 2rem;
@@ -197,6 +335,25 @@ export default {
       align-items: center;
       justify-content: space-between;
       height: 100vh;
+
+      @media screen and (max-width: 1024px) {
+        opacity: 0;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: .15s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #000000;
+        z-index: 5;
+        padding: 5rem 2rem 2rem;
+
+        &.active {
+          width: 40vw;
+          opacity: 1;
+          transform: scaleX(1);
+        }
+      }
 
       img {
         width: 90%;
@@ -247,11 +404,23 @@ export default {
       width: 55%;
       height: 100vh;
 
+      @media screen and (max-width: 1024px) {
+        padding: 5rem 0;
+        height: auto;
+        width: 90vw;
+        margin: auto;
+      }
+
       header {
         display: flex;
         padding: 2rem 2rem 1rem;
         align-items: center;
         width: 55vw;
+
+        @media screen and (max-width: 1024px) {
+          width: 100%;
+          padding: 2rem 2rem 1rem;
+        }
 
         h1 {
           width: 400px;
@@ -297,6 +466,16 @@ export default {
         justify-content: flex-start;
         gap: 80px;
         color: #FFFFFF;
+
+        @media screen and (max-width: 1024px) {
+          padding: 1rem 0;
+        }
+
+        @media screen and (max-width: 768px) {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 20px;
+        }
 
         .wallet {
           display: flex;
@@ -357,19 +536,24 @@ export default {
         border-radius: 30px;
         height: 50vh;
         width: 100%;
-        padding: .5rem;
+        padding: 1rem;
 
         .edit-chart-buttons {
           display: flex;
           align-items: center;
           justify-content: space-between;
           width: 100%;
-          padding: 1rem;
           .sort-buttons {
             display: flex;
             align-items: center;
             justify-content: flex-start;
             gap: 10px;
+
+            @media screen and (max-width: 1024px) {
+              .responsive-disappear {
+                display: none;
+              }
+            }
 
             span {
               border-radius: 5px;
@@ -382,6 +566,11 @@ export default {
             align-items: center;
             justify-content: center;
             gap: 15px;
+
+            img {
+              width: 30px;
+              cursor: pointer;
+            }
           }
         }
       }
@@ -393,12 +582,36 @@ export default {
         gap: 10px;
         margin-top: 1rem;
 
+        @media screen and (max-width: 1024px) {
+          width: 100%;
+        }
+
         &-header {
           display: flex;
           align-items: center;
           justify-content: space-between;
           width: 85%;
+          color: #FFFFFF;
+
+          @media screen and (max-width: 1024px) {
+            width: 90%;
+          }
         }
+      }
+    }
+
+    .profile-responsive {
+      width: 40px;
+      aspect-ratio: 1/1;
+      position: absolute;
+      right: 16px;
+      top: 32px;
+      display: none;
+      z-index: 100;
+      cursor: pointer;
+
+      @media screen and (max-width: 1024px) {
+        display: block;
       }
     }
 
@@ -409,6 +622,35 @@ export default {
       padding: 1rem 0;
       width: 25%;
 
+      @media screen and (max-width: 1024px) {
+        width: 50vw;
+        height: 100vh;
+        position: absolute;
+        right: 0;
+        transform: scaleX(0);
+        top: 0;
+        z-index: 5;
+        background-color: #000000;
+        transition: .15s ease;
+        transform-origin: right;
+        
+        
+        &.active {
+          transform: scaleX(1);
+
+          &::before {
+            content: '';
+            width: 50vw;
+            height: 100vh;
+            position: absolute;
+            left: -50vw;
+            top: 0;
+            background-color: rgba($color: #000000, $alpha: .25);
+            backdrop-filter: blur(10px);
+          }
+        }
+      }
+
       .action-buttons {
         display: flex;
         align-items: center;
@@ -418,6 +660,12 @@ export default {
 
         img {
           width: 40px;
+        }
+
+        @media screen and (max-width: 1024px) {
+            #desktop-profile-button {
+            display: none;
+          }
         }
 
         .small-icon {

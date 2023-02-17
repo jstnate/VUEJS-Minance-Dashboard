@@ -14,3 +14,19 @@ views.forEach((view) => {
         })
         view.classList.toggle('active')
 })})
+
+const burgerButton = document.getElementById('burger-button')
+const burgerMenu = document.getElementById('burger-menu')
+
+burgerButton.addEventListener('click', () => {
+    burgerButton.classList.toggle('active')
+    burgerMenu.classList.toggle('active')
+})
+
+const profileButton = document.getElementById('profile-button')
+const profileMenu = document.getElementById('profile-menu')
+
+profileButton.addEventListener('click', () => {
+    profileMenu.classList.toggle('active')
+})
+

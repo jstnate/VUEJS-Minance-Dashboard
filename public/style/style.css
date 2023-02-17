@@ -11,5 +11,10 @@
   min-height: 100vh;
   background-color: #000000;
 }
+@media screen and (max-width: 1024px) {
+  #app {
+    min-height: 100%;
+  }
+}
 
 /*# sourceMappingURL=style.css.map */

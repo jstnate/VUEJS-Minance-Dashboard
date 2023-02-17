@@ -1,7 +1,7 @@
 <template lang="">
     <div>
         <img class="icon" :src="require(`@/assets/${logo}`)" alt="">
-        <span>{{ crypto }}</span>
+        <span class="crypto">{{ crypto }}</span>
         <img src="@/assets/images/down-chevron.png" alt="">
     </div>
 </template>
@@ -32,6 +32,12 @@
         background-color: #000000;
         gap: 15px;
         color: #ffffff;
+
+        @media screen and (max-width: 1024px) {
+            .crypto {
+                display: none;
+            }
+        }
 
         .icon {
             width: 30px
