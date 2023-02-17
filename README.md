@@ -1,5 +1,9 @@
-# website
+# Minance Dashboard
 
+## Why did I make this project ?
+This Project was made in the context of a model integration class and have any real project goal
+
+---
 ## Project setup
 ```
 npm install
